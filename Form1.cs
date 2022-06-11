@@ -4,7 +4,7 @@ namespace Fishing
     {
         Random random = new Random();
         List<PictureBox> fishes = new List<PictureBox>();
-        static int i = 0;
+        static int i = 0; 
         public Form1()
         {
             InitializeComponent();
@@ -12,13 +12,13 @@ namespace Fishing
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = Properties.Resources.boat;
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage; 
+            //pictureBox1.Image = Properties.Resources.boat;
+            //pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage; 
         }
         private void Form1_KeyDown(object sender, KeyEventArgs e)
-        {
-            int x = pictureBox1.Location.X;
-            int y = pictureBox1.Location.Y;
+        { 
+            int x = panel1.Location.X;
+            int y = panel1.Location.Y;
             if (e.KeyCode == Keys.D)
                 x += 5;
             else if (e.KeyCode == Keys.A)
@@ -32,7 +32,7 @@ namespace Fishing
                 x = 0;
             else if (x > 700)
                 x = 700;
-            pictureBox1.Location = new Point(x, y);
+            panel1.Location = new Point(x, y);
         }
         private void MakeFish()
         {
@@ -52,7 +52,6 @@ namespace Fishing
             fishes.Add(newFish);
             this.Controls.Add(newFish);
         }
-
         private void ClickedFish(object sender, EventArgs e)
         {
             PictureBox temp = sender as PictureBox; 
@@ -61,7 +60,7 @@ namespace Fishing
             i++;
             score.Text = i.ToString();
             score.ForeColor = Color.Orange;
-            if (i == 10)
+            if (i == 3)
             {
                 MessageBox.Show("You have enough food now.");
             }
@@ -74,13 +73,54 @@ namespace Fishing
                 timer1.Enabled = false;
             }
         }
+        void boat(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            SolidBrush brush = new SolidBrush(Color.Red);
+            SolidBrush brush1 = new SolidBrush(Color.AliceBlue);
 
+            Point point1 = new Point(150, 150);
+            Point point2 = new Point(190, 200);
+            Point point3 = new Point(240, 200);
+            Point point4 = new Point(270, 150);
+
+            Point[] points =
+            {
+                point1,
+                point2,
+                point3,
+                point4,
+            };
+
+            //malo jedro
+            Point point5 = new Point(200,100);
+            Point point6 = new Point(190, 145);
+            Point point7 = new Point(210, 145);
+            Point[] points2 =
+            {
+                point5,
+                point6,
+                point7
+            };
+            //veliko jedro
+            Point point8 = new Point(220, 80);
+            Point point9 = new Point(220, 145);
+            Point point10 = new Point(240, 145);
+            Point[] points3 =
+            {
+                point8,
+                point9,
+                point10
+            };
+
+            g.FillPolygon(brush1, points2);
+            g.FillPolygon(brush1, points3);
+            g.FillPolygon(brush, points);
+        }
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
             graphics.DrawString("Uhvacene ribe: ", new Font(FontFamily.GenericSansSerif, 14), new SolidBrush(Color.Orange), 10, 10);
-            /*pictureBox1.Image = Properties.Resources.boat;
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;*/
         }
     }
 }
